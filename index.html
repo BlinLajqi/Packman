@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packman Game</title>
+    <style>
+        div.row div {
+            background-color: #1313C6;
+            height: 40px;
+            width: 40px;
+            display: inline-block;
+        }
+
+        body {
+            margin: 0px;
+            background-color: black;
+        }
+
+        .row {
+            line-height: 0%;
+        }
+
+        div.row .coin {
+            background-image: url("coin.gif");
+            background-color: black;
+            background-position: center;
+            background-size: contain;
+        }
+
+        div.row .empty {
+            background-color: black;
+        }
+
+        div.row .apple {
+            background-image: url("apple2.gif");
+            background-color: black;
+            height: 40px;
+            width: 40px;
+            background-position: center;
+            background-size: contain;
+        }
+
+        #packman {
+            background-image: url("packman.gif");
+            background-color: black;
+            background-position: center;
+            background-size: contain;
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        #ghost {
+            background-image: url("ghost.gif");
+            background-color: black;
+            background-position: center;
+            background-size: contain;
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        #ghost2 {
+            background-image: url("red.gif");
+            background-color: black;
+            background-position: center;
+            background-size: contain;
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        #ghost3 {
+            background-image: url("orange.gif");
+            background-color: black;
+            background-position: center;
+            background-size: contain;
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        #ghost4 {
+            background-image: url("ghost.gif");
+            background-color: black;
+            background-position: center;
+            background-size: contain;
+            height: 40px;
+            width: 40px;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+        }
+
+        #score {
+            border: 1px solid white;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            color: white;
+            background-color: black;
+            font-size: 36px;
+        }
+
+        .live {
+            background-image: url("heart.png");
+            background-color: black;
+            display: inline-block;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 35px;
+            height: 26px;
+        }
+
+        #div2 {
+            justify-content: center;
+            height: auto;
+        }
+
+        .gameover {
+            color: beige;
+            font-size: 50px;
+            text-align: center;
+        }
+        .victory {
+            color: beige;
+            font-size: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="world"></div>
+    <div id="packman"></div>
+    <div id="ghost"></div>
+    <div id="ghost2"></div>
+    <div id="ghost3"></div>
+    <div id="ghost4"></div>
+    <div id="score">0</div>
+    <div id="div2">
+        <div id="1" class="live"></div>
+        <div id="2" class="live"></div>
+        <div id="3" class="live"></div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+    </div>
+    <div class="row">
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="coin"></div>
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="coin"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+    </div>
+    <div class="row">
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="coin"></div>
+        <div class="coin"></div>
+        <div class="wall"></div>
+    </div>
+    <div class="row">
+        <div class="wall"></div>
+        <div class="coin"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="empty "></div>
+        <div class="coin"></div>
+        <div class="wall"></div>
+    </div>
+    <div class="row">
+        <div class="wall"></div>
+        <div class="coin"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="coin"></div>
+        <div class="coin"></div>
+        <div class="coin"></div>
+        <div class="coin"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+    </div>
+    <div class="row">
+        <div class="wall"></div>
+        <div class="coin"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+    </div>
+    <div class="row">
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="wall"></div>
+    </div>
+    <div class="row">
+        <div class="wall"></div>
+        <div class="coin"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="coin"></div>
+        <div class="coin"></div>
+        <div class="coin"></div>
+        <div class="empty"></div>
+        <div class="empty"></div>
+        <div class="coin"></div>
+        <div class="wall"></div>
+    </div>
+    <div class="row">
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+        <div class="wall"></div>
+    </div> -->
+    <script>
+        var world = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 2, 2, 2, 3, 3, 3, 3, 2, 3, 3, 3, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 3, 2, 3, 2, 2, 2, 2, 2, 2, 2, 1],
+            [1, 2, 2, 1, 2, 2, 2, 2, 3, 2, 1, 1, 1, 1, 2, 2, 2, 2, 3, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 2, 1, 2, 2, 1],
+            [1, 2, 2, 1, 2, 2, 2, 2, 3, 2, 2, 2, 2, 1, 3, 2, 2, 2, 2, 1, 2, 4, 2, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 2, 1],
+            [1, 2, 2, 1, 3, 2, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 1, 2, 2, 3, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 1],
+            [1, 3, 2, 1, 3, 2, 2, 2, 2, 2, 2, 3, 2, 3, 2, 2, 1, 2, 2, 1, 2, 2, 3, 2, 2, 2, 2, 1, 2, 2, 3, 2, 2, 2, 1],
+            [1, 3, 2, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 3, 2, 1, 2, 2, 3, 3, 2, 4, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 1],
+            [1, 3, 2, 2, 2, 3, 2, 2, 2, 1, 1, 2, 2, 1, 2, 2, 1, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 1],
+            [1, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 1, 2, 3, 2, 2, 1],
+            [1, 3, 1, 1, 1, 2, 2, 1, 3, 3, 1, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 1, 2, 2, 3, 2, 1],
+            [1, 2, 2, 4, 2, 3, 2, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 1, 1, 2, 2, 2, 2, 1],
+            [1, 2, 2, 2, 2, 3, 3, 1, 2, 2, 2, 2, 2, 2, 3, 2, 2, 3, 2, 2, 3, 2, 2, 2, 2, 3, 2, 3, 2, 2, 2, 2, 2, 2, 1],
+            [1, 2, 2, 1, 1, 2, 2, 2, 2, 2, 3, 2, 2, 3, 2, 2, 2, 3, 2, 2, 3, 2, 2, 2, 3, 3, 3, 2, 2, 2, 3, 4, 2, 3, 1],
+            [1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 2, 2, 3, 3, 3, 2, 3, 2, 2, 2, 2, 2, 3, 3, 2, 2, 3, 3, 3, 3, 1],
+            [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+        ];
+        var packman2 = {
+            x: 1,
+            y: 1
+        };
+        var ghost = {
+            x: 25,
+            y: 8
+        };
+        var ghost2 = {
+            x: 4,
+            y: 11
+        };
+        var ghost3 = {
+            x: 17,
+            y: 9
+        };
+        var ghost4 = {
+            x: 7,
+            y: 3
+        };
+        var score = 0;
+        var lives = 3;
+
+        function createPackman() {
+            document.getElementById("packman").style.left = packman2.x * 40 + "px";
+            document.getElementById("packman").style.top = packman2.y * 40 + "px";
+        };
+        function createGhost() {
+            document.getElementById("ghost").style.left = ghost.x * 40 + "px";
+            document.getElementById("ghost").style.top = ghost.y * 40 + "px";
+        };
+        function createGhost2() {
+            document.getElementById("ghost2").style.left = ghost2.x * 40 + "px";
+            document.getElementById("ghost2").style.top = ghost2.y * 40 + "px";
+        };
+        function createGhost3() {
+            document.getElementById("ghost3").style.left = ghost3.x * 40 + "px";
+            document.getElementById("ghost3").style.top = ghost3.y * 40 + "px";
+        };
+        function createGhost4() {
+            document.getElementById("ghost4").style.left = ghost4.x * 40 + "px";
+            document.getElementById("ghost4").style.top = ghost4.y * 40 + "px";
+        };
+
+        function creation() {
+            var output = "";
+            for (var i = 0; i < world.length; i++) {
+                output += "<div class='row'>";
+                for (var col = 0; col < world[i].length; col++) {
+                    if (world[i][col] == 1)
+                        output += "<div class='wall'></div>";
+                    else if (world[i][col] == 2) {
+                        output += "<div class='empty'></div>";
+                    }
+                    else if (world[i][col] == 3) {
+                        output += "<div class='coin'></div>";
+                    }
+                    else if (world[i][col] == 4) {
+                        output += "<div class='apple'></div>";
+                    }
+                } output += "</div>";
+            }
+            document.getElementById("world").innerHTML = output;
+        }
+        function displayscore() {
+            document.getElementById("score").innerHTML = score;
+        }
+        document.onkeydown = function (e) {
+
+            if (e.keyCode == 38 && packman2.y != 0) {
+                if (world[packman2.y - 1][packman2.x] != 1) {
+                    packman2.y = packman2.y - 1;
+                    document.getElementById("packman").style.backgroundImage = "url('packmanUp.gif')";
+                };
+            };
+
+            if (e.keyCode == 40 && packman2.y != world.length) {
+                if (world[packman2.y + 1][packman2.x] != 1) {
+                    packman2.y = packman2.y + 1;
+                    document.getElementById("packman").style.backgroundImage = "url('packmanDown.gif')";
+                };
+            };
+            if (e.keyCode == 39 && packman2.x != world[packman2.y].length) {
+                if (world[packman2.y][packman2.x + 1] != 1) {
+                    packman2.x = packman2.x + 1;
+                    document.getElementById("packman").style.backgroundImage = "url('packman.gif')";
+                };
+            };
+
+            if (e.keyCode == 37 && packman2.x != 0) {
+                if (world[packman2.y][packman2.x - 1] != 1) {
+                    packman2.x = packman2.x - 1;
+                    document.getElementById("packman").style.backgroundImage = "url('packmanLeft.gif')";
+                };
+            };
+
+            if (world[packman2.y][packman2.x] == 3) {
+                world[packman2.y][packman2.x] = 2;
+                score += 10;
+            };
+            if (world[packman2.y][packman2.x] == 4) {
+                world[packman2.y][packman2.x] = 2;
+                score += 50;
+            };
+            if(score == 1050){
+                document.body.innerHTML = "<div class='victory'>You won!</div>";
+                setInterval(reload, 2500);
+            };
+
+            if (packman2.y == ghost.y && packman2.x == ghost.x) {
+                var elem = document.getElementById(lives);
+                elem.style.display = "none";
+                lives--;
+            };
+            if (packman2.y == ghost2.y && packman2.x == ghost2.x) {
+                var elem = document.getElementById(lives);
+                elem.style.display = "none";
+                lives--;
+            };
+            if (packman2.y == ghost3.y && packman2.x == ghost3.x) {
+                var elem = document.getElementById(lives);
+                elem.style.display = "none";
+                lives--;
+            };
+            if (packman2.y == ghost4.y && packman2.x == ghost4.x) {
+                var elem = document.getElementById(lives);
+                elem.style.display = "none";
+                lives--;
+            };
+
+            displayscore()
+            createPackman();
+            createGhost();
+            createGhost2();
+            createGhost3();
+            createGhost4();
+            creation();
+            checkForLives();
+
+        };
+
+        function checkForLives(){
+                if (lives == 0) {
+                    document.body.innerHTML = "<div class='gameover'>Game Over</div>";
+                    setInterval(reload, 2500);
+                };
+            };
+
+        var ghostDirection = "";
+
+        function moveGhost() {
+            randomPosition();
+
+            if (ghostDirection == "left" && ghost.x != 0) {
+                if (world[ghost.y][ghost.x - 1] != 1) {
+                    ghost.x = ghost.x - 1;
+                };
+            };
+            if (ghostDirection == "right" && ghost.y != world.length) {
+                if (world[ghost.y + 1][ghost.x] != 1) {
+                    ghost.y = ghost.y + 1;
+                };
+            };
+            if (ghostDirection == "up" && ghost.x != world[ghost.y].length) {
+                if (world[ghost.y][ghost.x + 1] != 1) {
+                    ghost.x = ghost.x + 1;
+                };
+            };
+            if (ghostDirection == "down" && ghost.y != 0) {
+                if (world[ghost.y - 1][ghost.x] != 1) {
+                    ghost.y = ghost.y - 1;
+                };
+            };
+
+            createGhost();
+
+            if (packman2.y == ghost.y && packman2.x == ghost.x) {
+                var elem = document.getElementById(lives);
+                elem.style.display = "none";
+                lives--;
+                checkForLives();
+            };
+
+        };
+        function moveGhost2() {
+            randomPosition();
+
+            if (ghostDirection == "left" && ghost2.x != 0) {
+                if (world[ghost2.y][ghost2.x - 1] != 1) {
+                    ghost2.x = ghost2.x - 1;
+                };
+            };
+            if (ghostDirection == "right" && ghost2.y != world.length) {
+                if (world[ghost2.y + 1][ghost2.x] != 1) {
+                    ghost2.y = ghost2.y + 1;
+                };
+            };
+            if (ghostDirection == "up" && ghost2.x != world[ghost2.y].length) {
+                if (world[ghost2.y][ghost2.x + 1] != 1) {
+                    ghost2.x = ghost2.x + 1;
+                };
+            };
+            if (ghostDirection == "down" && ghost2.y != 0) {
+                if (world[ghost2.y - 1][ghost2.x] != 1) {
+                    ghost2.y = ghost2.y - 1;
+                };
+            };
+
+            createGhost2();
+
+            if (packman2.y == ghost2.y && packman2.x == ghost2.x) {
+                var elem = document.getElementById(lives);
+                elem.style.display = "none";
+                lives--;
+                checkForLives();
+            };
+        };
+        function moveGhost3() {
+            randomPosition();
+
+            if (ghostDirection == "left" && ghost3.x != 0) {
+                if (world[ghost3.y][ghost3.x - 1] != 1) {
+                    ghost3.x = ghost3.x - 1;
+                };
+            };
+            if (ghostDirection == "right" && ghost3.y != world.length) {
+                if (world[ghost3.y + 1][ghost3.x] != 1) {
+                    ghost3.y = ghost3.y + 1;
+                };
+            };
+            if (ghostDirection == "up" && ghost3.x != world[ghost3.y].length) {
+                if (world[ghost3.y][ghost3.x + 1] != 1) {
+                    ghost3.x = ghost3.x + 1;
+                };
+            };
+            if (ghostDirection == "down" && ghost3.y != 0) {
+                if (world[ghost3.y - 1][ghost3.x] != 1) {
+                    ghost3.y = ghost3.y - 1;
+                };
+            };
+
+            createGhost3();
+
+            if (packman2.y == ghost3.y && packman2.x == ghost3.x) {
+                var elem = document.getElementById(lives);
+                elem.style.display = "none";
+                lives--;
+                checkForLives();
+            };
+        };
+        function moveGhost4() {
+            randomPosition();
+
+            if (ghostDirection == "left" && ghost4.x != 0) {
+                if (world[ghost4.y][ghost4.x - 1] != 1) {
+                    ghost4.x = ghost4.x - 1;
+                };
+            };
+            if (ghostDirection == "right" && ghost4.y != world.length) {
+                if (world[ghost4.y + 1][ghost4.x] != 1) {
+                    ghost4.y = ghost4.y + 1;
+                };
+            };
+            if (ghostDirection == "up" && ghost4.x != world[ghost4.y].length) {
+                if (world[ghost4.y][ghost4.x + 1] != 1) {
+                    ghost4.x = ghost4.x + 1;
+                };
+            };
+            if (ghostDirection == "down" && ghost4.y != 0) {
+                if (world[ghost4.y - 1][ghost4.x] != 1) {
+                    ghost4.y = ghost4.y - 1;
+                };
+            };
+
+            createGhost4();
+
+            if (packman2.y == ghost4.y && packman2.x == ghost4.x) {
+                var elem = document.getElementById(lives);
+                elem.style.display = "none";
+                lives--;
+                checkForLives();
+            };
+        };
+        function randomPosition() {
+            var random = Math.floor(Math.random() * 5);
+            if (random == 1) {
+                ghostDirection = "left";
+            }
+            else if (random == 2) {
+                ghostDirection = "right";
+            }
+            else if (random == 3) {
+                ghostDirection = "up";
+            }
+            else if (random == 4) {
+                ghostDirection = "down";
+            };
+
+        }
+ 
+
+        function reload() {
+            location.reload();
+        }
+
+        creation();
+        createPackman();
+        createGhost();
+        createGhost2();
+        createGhost3();
+        createGhost4();
+        setInterval(moveGhost, 500);
+        setInterval(moveGhost2, 500);
+        setInterval(moveGhost3, 500);
+        setInterval(moveGhost4, 500);
+        moveGhost();
+        moveGhost2();
+        moveGhost3();
+        moveGhost4();
+    </script>
+</body>
+
+</html>
